@@ -1,5 +1,7 @@
-name: Verify Format
+name: Verify format
+
 on: pull_request
+
 jobs:
   check_format:
     runs-on: ubuntu-latest
