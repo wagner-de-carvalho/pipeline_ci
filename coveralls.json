@@ -1,0 +1,19 @@
+{
+    "skip_files": [
+      "test/support",
+      "lib/pipeline_ci_web/channels/user_socket.ex",
+      "lib/pipeline_ci/application.ex",
+      "lib/pipeline_ci/mailer",
+      "lib/pipeline_ci_web/endpoint.ex",
+      "lib/pipeline_ci_web/gettext.ex",
+      "lib/pipeline_ci/repo.ex",
+      "lib/pipeline_ci_web/router.ex",
+      "lib/pipeline_ci_web/views/error_helpers.ex",
+      "lib/pipeline_ci_web/telemetry.ex"
+    ],
+    "coverage_options": {
+        "treat_no_relevant_lines_as_covered": true,
+        "output_dir": "cover/",
+        "minimum_coverage": 5
+    }
+  }
