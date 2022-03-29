@@ -10,9 +10,9 @@ defmodule PipelineCiWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
+  # pipeline :api do
+  #   plug :accepts, ["json"]
+  # end
 
   scope "/", PipelineCiWeb do
     pipe_through :browser
@@ -25,6 +25,7 @@ defmodule PipelineCiWeb.Router do
   #   pipe_through :api
   # end
 
+  # coveralls-ignore-start
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -41,6 +42,8 @@ defmodule PipelineCiWeb.Router do
       live_dashboard "/dashboard", metrics: PipelineCiWeb.Telemetry
     end
   end
+
+  # coveralls-ignore-stop
 
   # Enables the Swoosh mailbox preview in development.
   #
