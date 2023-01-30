@@ -1,0 +1,27 @@
+name: Check Security
+
+on: pull_request
+
+jobs:
+  check_sec:
+    runs-on: ubuntu-latest
+    strategy:
+      matix:
+        elixir: [1.14]
+        otp: [24]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: erlef/set-up@v1
+        with:
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.otp }}
+      - uses: actions/cache@v1
+        id: mix-sec-cache
+        with:
+          path: deps
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}-{1}')), github.workspace, '/mix.lock'}}
+      - name: Install Mix Dependencies
+        if: steps.mix-sec-cache.outputs.cache-hit != 'true'
+        run: mix deps.get
+      - name: Check Security
+        run: mix sobelow --config
