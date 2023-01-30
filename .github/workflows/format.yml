@@ -6,7 +6,7 @@ jobs:
   check_format:
     runs-on: ubuntu-latest
     strategy:
-      matix:
+      matrix:
         elixir: [1.14]
         otp: [24]
     steps:
