@@ -1,12 +1,12 @@
-name: Check Format
+name: Check Security
 
 on: pull_request
 
 jobs:
-  check_format:
+  check_sec:
     runs-on: ubuntu-latest
     strategy:
-      matix:
+      matrix:
         elixir: [1.14]
         otp: [24]
     steps:
@@ -16,12 +16,12 @@ jobs:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
       - uses: actions/cache@v1
-        id: mix-format-cache
+        id: mix-sec-cache
         with:
           path: deps
-          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}-{1}')), github.workspace, '/mix.lock'}}
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}-{1}', github.workspace, '/mix.lock' ))}}
       - name: Install Mix Dependencies
-        if: steps.mix-format-cache.outputs.cache-hit != 'true'
+        if: steps.mix-sec-cache.outputs.cache-hit != 'true'
         run: mix deps.get
-      - name: Check Format
-        run: mix format --check-formatted
+      - name: Check Security
+        run: mix sobelow --config
