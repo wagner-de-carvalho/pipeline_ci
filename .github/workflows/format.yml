@@ -6,7 +6,7 @@ jobs:
   check_format:
     runs-on: ubuntu-latest
     strategy:
-      matix:
+      matrix:
         elixir: [1.14]
         otp: [24]
     steps:
@@ -19,7 +19,7 @@ jobs:
         id: mix-format-cache
         with:
           path: deps
-          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}-{1}')), github.workspace, '/mix.lock'}}
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}-{1}', github.workspace, '/mix.lock')) }}
       - name: Install Mix Dependencies
         if: steps.mix-format-cache.outputs.cache-hit != 'true'
         run: mix deps.get
